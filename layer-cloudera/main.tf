@@ -37,5 +37,8 @@ resource "aws_instance" "web" {
   ami           = "${data.aws_ami.redhat.id}"
   instance_type = "t2.micro"
   count         = 3
+  tags {
+    Name = "${format("master%02d", count.index + 1)}"
+  }
   subnet_id     = "${element(data.aws_subnet_ids.private.ids, count.index)}"
 }
