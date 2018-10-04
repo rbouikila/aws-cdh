@@ -5,8 +5,8 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "cloudera-deploiement-terraform"
-    region = "eu-west-1"
     key    = "layer-base"
+    region = "eu-west-1"
   }
 }
 
