@@ -32,11 +32,7 @@ data "aws_ami" "redhat" {
 }
 
 resource "aws_instance" "web" {
-  ami           = "${data.aws_ami.ubuntu.id}"
+  ami           = "${data.aws_ami.redhat.id}"
   instance_type = "t2.micro"
-  count = 3
-
-  tags {
-    Name = "HelloWorld"
-  }
+  count         = 3
 }
