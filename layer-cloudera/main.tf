@@ -20,12 +20,7 @@ data "aws_ami" "redhat" {
 
   filter {
     name   = "name"
-    values = ["redhat/images/hvm-ssd/RHEL-7.5_HVM_GA*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+    values = ["RHEL-7.5_HVM_GA*"]
   }
 
   owners = ["309956199498"] # Red hat
