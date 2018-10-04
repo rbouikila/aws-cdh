@@ -1,17 +1,17 @@
 output "sn_public_a_id" {
-  value = "${aws_subnet.demo_sn_public_a.id}"
+  value = "${aws_subnet.cloudera_sn_public_a.id}"
 }
 
 output "sn_public_b_id" {
-  value = "${aws_subnet.demo_sn_public_b.id}"
+  value = "${aws_subnet.cloudera_sn_public_b.id}"
 }
 
 output "sn_public_c_id" {
-  value = "${aws_subnet.demo_sn_public_c.id}"
+  value = "${aws_subnet.cloudera_sn_public_c.id}"
 }
 
 output "vpc_id" {
-  value = "${aws_vpc.demo_vpc.id}"
+  value = "${aws_vpc.cloudera_vpc.id}"
 }
 
 output "vpc_cidr" {

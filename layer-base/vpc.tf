@@ -116,34 +116,6 @@ resource "aws_route_table_association" "cloudera_vpc_rta_public_c" {
   route_table_id = "${aws_route_table.cloudera_vpc_rt_public.id}"
 }
 
-/* ici la SG générique pour les instances dans le réseau public */
-
-/*
-resource "aws_security_group" "demo_sg_public" {
-  description = "Allow incoming HTTP connections."
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "cloudera_sg_public"
-  }
-
-  vpc_id = "${aws_vpc.demo_vpc.id}"
-}
-*/
-
 /* nat gateway eu-west-1a */
 
 resource "aws_eip" "cloudera_nat_a_gw_eip" {
