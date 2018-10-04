@@ -14,3 +14,8 @@ data "terraform_remote_state" "layer-base" {
     region = "eu-west-1"
   }
 }
+
+resource "aws_key_pair" "cloudera-ssh-accorhotels" {
+  key_name   = "cloudera-ssh-accorhotels"
+  public_key = "${file("~/.ssh/id_rsa.pub")}"
+}
