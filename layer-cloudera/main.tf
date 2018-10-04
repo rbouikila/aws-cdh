@@ -26,8 +26,16 @@ data "aws_ami" "redhat" {
   owners = ["309956199498"] # Red hat
 }
 
+data "aws_subnet_ids" "private" {
+  vpc_id = "${data.terraform_remote_state.layer-base.vpc_id}"
+  tags {
+    Name = "cloudera_sn_private_*"
+  }
+}
+
 resource "aws_instance" "web" {
   ami           = "${data.aws_ami.redhat.id}"
   instance_type = "t2.micro"
   count         = 3
+  subnet_id     = "${element(data.aws_subnet_ids.private.ids, count.index)}"
 }
