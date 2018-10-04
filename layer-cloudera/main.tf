@@ -50,21 +50,21 @@ resource "aws_instance" "cdh_server" {
   }
 
   ebs_block_device {
-    device_name           = "sdb1"
+    device_name           = "/dev/xvdb1"
     volume_type           = "gp2"
     volume_size           = "200"
     iops                  = "15000"
   }
 
   ebs_block_device {
-    device_name           = "sdc1"
+    device_name           = "/dev/xvdc1"
     volume_type           = "gp2"
     volume_size           = "200"
     iops                  = "15000"
   }
 
   ebs_block_device {
-    device_name           = "sdd1"
+    device_name           = "/dev/xvdd1"
     volume_type           = "gp2"
     volume_size           = "200"
     iops                  = "15000"
