@@ -41,4 +41,11 @@ resource "aws_instance" "web" {
     Name = "${format("master%02d", count.index + 1)}"
   }
   subnet_id     = "${element(data.aws_subnet_ids.private.ids, count.index)}"
+  
+  root_block_device {
+    volume_type           = "io1"
+    volume_size           = "200"
+    iops                  = "1000"
+    delete_on_termination = true
+  }
 }
