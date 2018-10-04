@@ -15,11 +15,6 @@ data "terraform_remote_state" "layer-base" {
   }
 }
 
-data "aws_key_pair" "cloudera-ssh-accorhotels" {
-  key_name   = "cloudera-ssh-accorhotels"
-  public_key = "${file("~/.ssh/id_rsa.pub")}"
-}
-
 data "aws_ami" "redhat" {
   
   most_recent = true
