@@ -3,7 +3,8 @@ resource "aws_instance" "cdh_server" {
   ami           = "${data.aws_ami.redhat.id}"
   instance_type = "t2.micro"
   count         = 3
-  key_name      = "cloudera-ssh-accorhotels"
+  #key_name      = "cloudera-ssh-accorhotels"
+  key_name      = "${data.aws_key_pair.cloudera-ssh-accorhotels}"
   subnet_id     = "${element(data.aws_subnet_ids.private.ids, count.index)}"
 
   tags {
