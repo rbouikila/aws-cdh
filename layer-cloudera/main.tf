@@ -33,7 +33,7 @@ data "aws_subnet_ids" "private" {
   }
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "cdh_server" {
   ami           = "${data.aws_ami.redhat.id}"
   instance_type = "t2.micro"
   count         = 3
@@ -44,8 +44,29 @@ resource "aws_instance" "web" {
   
   root_block_device {
     volume_type           = "io1"
-    volume_size           = "200"
+    volume_size           = "50"
     iops                  = "1000"
     delete_on_termination = true
+  }
+
+  ebs_block_device {
+    device_name           = "/dev/sdb1"
+    volume_type           = "gp2"
+    volume_size           = "200"
+    iops                  = "15000"
+  }
+
+  ebs_block_device {
+    device_name           = "/dev/sdc1"
+    volume_type           = "gp2"
+    volume_size           = "200"
+    iops                  = "15000"
+  }
+
+  ebs_block_device {
+    device_name           = "/dev/sdd1"
+    volume_type           = "gp2"
+    volume_size           = "200"
+    iops                  = "15000"
   }
 }
