@@ -19,3 +19,22 @@ resource "aws_key_pair" "cloudera-ssh-accorhotels" {
   key_name   = "cloudera-ssh-accorhotels"
   public_key = "${file("~/.ssh/id_rsa.pub")}"
 }
+
+data "aws_ami" "redhat" {
+  
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["RHEL-7.5_HVM_GA*"]
+  }
+
+  owners = ["309956199498"] # Red hat
+}
+
+data "aws_subnet_ids" "private" {
+  vpc_id = "${data.terraform_remote_state.layer-base.vpc_id}"
+  tags {
+    Name = "cloudera_sn_private_*"
+  }
+}
