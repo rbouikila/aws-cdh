@@ -33,6 +33,14 @@ resource "aws_security_group" "allow_bastion_ssh" {
     protocol    = "tcp"
     cidr_blocks = ["${data.terraform_remote_state.layer-base.vpc_cidr}"]
   }
+
+  # allow ICMP to private subnet
+  egress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
+    cidr_blocks = ["${data.terraform_remote_state.layer-base.vpc_cidr}"]
+  }
 }
 
 
@@ -43,6 +51,7 @@ resource "aws_security_group" "allow_bastion_master" {
   description = "Allow SSH traffic"
   vpc_id      = "${data.terraform_remote_state.layer-base.vpc_id}"
 }
+
 
 resource "aws_security_group" "allow_bastion_worker" {
   name        = "allow_bastion_worker"
@@ -60,6 +69,16 @@ resource "aws_security_group_rule" "allow_ssh_bastion_master" {
   security_group_id = "${aws_security_group.allow_bastion_master.id}"
 }
 
+resource "aws_security_group_rule" "allow_icmp_bastion_master" {
+  type                     = "ingress"
+  from_port                = -1
+  to_port                  = -1
+  protocol                 = "icmp"
+  source_security_group_id = "${aws_security_group.allow_bastion_ssh.id}"
+
+  security_group_id = "${aws_security_group.allow_bastion_master.id}"
+}
+
 resource "aws_security_group_rule" "allow_ssh_bastion_worker" {
   type                     = "ingress"
   from_port                = 22
@@ -69,3 +88,35 @@ resource "aws_security_group_rule" "allow_ssh_bastion_worker" {
 
   security_group_id = "${aws_security_group.allow_bastion_worker.id}"
 }
+
+resource "aws_security_group_rule" "allow_icmp_bastion_worker" {
+  type                     = "ingress"
+  from_port                = -1
+  to_port                  = -1
+  protocol                 = "icmp"
+  source_security_group_id = "${aws_security_group.allow_bastion_ssh.id}"
+
+  security_group_id = "${aws_security_group.allow_bastion_worker.id}"
+}
+
+# Allow http/https
+resource "aws_security_group_rule" "allow_https_bastion_worker" {
+  type                     = "egress"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  cidr_blocks              = [ "0.0.0.0/0" ]
+
+  security_group_id = "${aws_security_group.allow_bastion_worker.id}"
+}
+
+resource "aws_security_group_rule" "allow_http_bastion_worker" {
+  type                     = "egress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+  cidr_blocks              = [ "0.0.0.0/0" ]
+
+  security_group_id = "${aws_security_group.allow_bastion_worker.id}"
+}
+
