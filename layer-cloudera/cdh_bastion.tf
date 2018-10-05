@@ -2,6 +2,7 @@
 resource "aws_instance" "cdh_bastion" {
   ami           = "${data.aws_ami.redhat.id}"
   instance_type = "t2.micro"
+  vpc_security_group_ids      = ["${aws_security_group.allow_bastion_ssh.id}"]
   count         = 1
   associate_public_ip_address = true
   key_name      = "${aws_key_pair.cloudera-ssh-accorhotels.key_name}"
