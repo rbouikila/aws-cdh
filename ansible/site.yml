@@ -1,0 +1,6 @@
+- name: install nano
+  hosts: tag_Type_workernode
+  tasks:
+    - include: nano/tasks/main.yml
+  become_user: root
+  become: yes
