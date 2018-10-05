@@ -55,7 +55,7 @@ resource "aws_security_group_rule" "allow_ssh_bastion_master" {
   protocol                 = "tcp"
   source_security_group_id = "${aws_security_group.allow_bastion_ssh.id}"
 
-  security_group_id = "${data.aws_security_group.allow_bastion_master.id}"
+  security_group_id = "${aws_security_group.allow_bastion_master.id}"
 }
 
 resource "aws_security_group_rule" "allow_ssh_bastion_worker" {
@@ -65,5 +65,5 @@ resource "aws_security_group_rule" "allow_ssh_bastion_worker" {
   protocol                 = "tcp"
   source_security_group_id = "${aws_security_group.allow_bastion_ssh.id}"
 
-  security_group_id = "${data.aws_security_group.allow_bastion_worker.id}"
+  security_group_id = "${aws_security_group.allow_bastion_worker.id}"
 }
