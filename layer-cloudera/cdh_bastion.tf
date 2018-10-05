@@ -1,5 +1,5 @@
 
-resource "aws_instance" "cdh_worker" {
+resource "aws_instance" "cdh_bastion" {
   ami           = "${data.aws_ami.redhat.id}"
   instance_type = "t2.micro"
   count         = 1
