@@ -13,6 +13,7 @@ resource "aws_instance" "cdh_worker" {
 
   tags {
     Name = "${format("worker%02d", count.index + 1)}"
+    Type = "workernode"
   }
 
   root_block_device {
