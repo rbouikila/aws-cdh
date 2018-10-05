@@ -1,7 +1,3 @@
-#resource "aws_key_pair" "cloudera-ssh-accorhotels" {
-#  key_name   = "cloudera-ssh-accorhotels"
-#  public_key = "${file("~/.ssh/id_rsa.pub")}"
-#}
 
 resource "aws_instance" "cdh_worker" {
   ami           = "${data.aws_ami.redhat.id}"
